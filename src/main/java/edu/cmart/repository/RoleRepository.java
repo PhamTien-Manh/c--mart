@@ -4,6 +4,10 @@ import edu.cmart.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Set;
+
 @Repository
-public interface RoleAccountRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
+
+    Set<Role> findByAccountId(Long accountId);
 }

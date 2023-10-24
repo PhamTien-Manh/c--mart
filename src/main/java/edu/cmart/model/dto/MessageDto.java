@@ -1,7 +1,6 @@
 package edu.cmart.model.dto;
 
 import edu.cmart.entity.enums.TypeMessage;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;

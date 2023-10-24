@@ -2,10 +2,8 @@ package edu.cmart.model.mapper;
 
 import edu.cmart.entity.City;
 import edu.cmart.entity.District;
-import edu.cmart.model.dto.CityDto;
 import edu.cmart.model.dto.DistrictDto;
 import edu.cmart.repository.CityRepository;
-import edu.cmart.repository.DistrictRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

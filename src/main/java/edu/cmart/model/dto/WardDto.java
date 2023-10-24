@@ -1,9 +1,6 @@
 package edu.cmart.model.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor

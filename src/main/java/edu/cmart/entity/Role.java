@@ -1,5 +1,6 @@
 package edu.cmart.entity;
 
+import edu.cmart.entity.enums.TypeRoles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private edu.cmart.entity.enums.Role role;
+    private TypeRoles typeRoles;
 
     @ManyToOne
     @JoinColumn(name = "accountId")
@@ -61,4 +62,8 @@ public class Role {
     @OneToMany(mappedBy = "roleDriver")
     private Set<Trip> tripsDriver;
 
+    public Role(TypeRoles typeRoles, Account accountNew) {
+        this.typeRoles = typeRoles;
+        this.account = accountNew;
+    }
 }

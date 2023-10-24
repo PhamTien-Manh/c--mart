@@ -1,5 +1,8 @@
 package edu.cmart.config;
 
+import edu.cmart.entity.Account;
+import edu.cmart.service.AccountService;
+import edu.cmart.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,7 +29,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final UserService userService;
+    private final AccountService accountService;
 
     /*
     *  Phương thức doFilterInternal() sẽ được thực thi mỗi khi có request tới server.
@@ -41,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String userEmail;
+        final String phoneNumber;
         // Nếu request không chứa Header là Authorization và prefix của token là Bearer
         // thì chúng ta sẽ bỏ qua filter này
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
@@ -50,20 +51,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         jwt = authHeader.substring(7);
         // Lấy thông tin người dùng từ token
-        userEmail = jwtService.extractUserName(jwt);
-        // Nếu token hợp lệ và người dùng chưa đăng nhập
-        // thì chúng ta sẽ lưu thông tin người dùng vào SecurityContext
-        if (StringUtils.isNotEmpty(userEmail)
-                && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.userDetailsService()
-                    .loadUserByUsername(userEmail);
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                SecurityContext context = SecurityContextHolder.createEmptyContext();
+        Account account = jwtService.extractUserName(jwt);
+        /*
+        * Kiểm tra lấy thông tin của người dùng
+        * Không nhất thiết phải kiểm tra trong database vì thông tin này đã được mã hóa trong token
+        * Cùng với việc các dữ liệu lưu trong token là unique và không thể thay đổi nên ta có thể
+        * lưu lại token cũ vào SecurityContextHolder để sử dụng lại
+        * */
+        if (account != null) {
+
+            if (jwtService.isTokenValid(jwt)) {
+
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                context.setAuthentication(authToken);
-                SecurityContextHolder.setContext(context);
+                        account, null, account.getAuthorities());
+
+                authToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
         filterChain.doFilter(request, response);

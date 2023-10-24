@@ -2,7 +2,6 @@ package edu.cmart.exception;
 
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.exception.core.ErrorResponse;
-import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.metadata.ConstraintDescriptor;
@@ -43,10 +42,15 @@ public class CustomExceptionHandler {
             response = new ErrorResponse(
                     "The request could not be fulfilled due to a foreign key constraint conflict",
                     exception.getClass().getName());
-        else
+        else if (exception.getMessage().contains("UNIQUE KEY constraint")){
+            response = new ErrorResponse(
+                    "The request could not be fulfilled due to a unique key constraint conflict",
+                    exception.getClass().getName());
+        } else {
             response = new ErrorResponse(
                     exception.getMessage(),
                     exception.getClass().getName());
+        }
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(response);

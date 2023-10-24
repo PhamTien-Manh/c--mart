@@ -1,12 +1,14 @@
 package edu.cmart.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import edu.cmart.entity.Account;
+
+import java.util.List;
 
 // lớp này sẽ trích xuất thông tin người dùng từ token, tạo token và kiểm tra tính hợp lệ của token
 public interface JwtService {
-    String extractUserName(String token);
+    Account extractUserName(String token);
 
-    String generateToken(UserDetails userDetails);
+    String generateToken(Account account, List<Integer> roles);
 
-    boolean isTokenValid(String token, UserDetails userDetails);
+    boolean isTokenValid(String token);
 }

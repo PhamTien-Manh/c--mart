@@ -1,13 +1,9 @@
 package edu.cmart.model.dto;
 
 import edu.cmart.entity.enums.Gender;
-import edu.cmart.entity.enums.Role;
-import jakarta.persistence.Transient;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor

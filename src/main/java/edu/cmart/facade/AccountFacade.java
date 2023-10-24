@@ -3,7 +3,6 @@ package edu.cmart.facade;
 import edu.cmart.exception.common.IdMustBeNullException;
 import edu.cmart.exception.common.InvalidParamException;
 import edu.cmart.exception.core.ArchitectureException;
-import edu.cmart.exception.entity.EntityAlreadyExistException;
 import edu.cmart.exception.entity.EntityNotFoundException;
 import edu.cmart.model.dto.AccountDto;
 import edu.cmart.model.dto.SearchCriteria;

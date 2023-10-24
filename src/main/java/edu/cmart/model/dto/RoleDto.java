@@ -1,16 +1,17 @@
 package edu.cmart.model.dto;
 
+import edu.cmart.entity.enums.TypeRoles;
 import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
 @ToString
 @Getter
 @Setter
-public class PaymentDto {
+public class RoleDto {
     private Long id;
-    private String name;
-    private String description;
+    private TypeRoles typeRoles;
+
+    private Long accountId;
 }

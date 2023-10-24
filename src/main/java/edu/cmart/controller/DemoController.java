@@ -1,6 +1,5 @@
 package edu.cmart.controller;
 
-import edu.cmart.entity.enums.Role;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.AccountFacade;
 import edu.cmart.model.dto.AccountDto;

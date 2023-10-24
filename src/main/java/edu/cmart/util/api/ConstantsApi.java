@@ -7,8 +7,15 @@ public class ConstantsApi {
 
     public static final String VERSION = "/v1";
     public static final String NAME_PROJECT = "/c-mart";
-
     public static final String BASE_URL = NAME_PROJECT + "/api" + VERSION;
+
+    public static final class Auth {
+        public static final String AUTH_PATH = BASE_URL + "/auth";
+//        public static final String LOGIN_PATH = AUTH_PATH + "/login";
+//        public static final String REGISTER_PATH = AUTH_PATH + "/register";
+//        public static final String REFRESH_TOKEN_PATH = AUTH_PATH + "/refresh-token";
+    }
+
     public static final class Account {
         public static final String ACCOUNT_PATH = BASE_URL + "/accounts";
     }

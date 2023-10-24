@@ -3,6 +3,7 @@ package edu.cmart.service;
 import edu.cmart.model.dto.AccountDto;
 import edu.cmart.model.dto.SearchCriteria;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,4 +24,6 @@ public interface AccountService {
     AccountDto save(AccountDto accountDto);
 
     void isLock(Long accountId, Boolean isLock);
+
+    UserDetailsService userDetailsService();
 }

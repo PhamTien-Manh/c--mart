@@ -1,6 +1,5 @@
 package edu.cmart.service;
 
-import edu.cmart.model.dto.DistrictDto;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.dto.WardDto;
 import org.springframework.data.domain.Page;

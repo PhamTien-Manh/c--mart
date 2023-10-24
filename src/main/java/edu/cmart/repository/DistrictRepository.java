@@ -1,7 +1,6 @@
 package edu.cmart.repository;
 
 import edu.cmart.entity.District;
-import edu.cmart.model.dto.DistrictDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

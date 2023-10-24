@@ -1,15 +1,10 @@
 package edu.cmart.service.impl;
 
-import edu.cmart.entity.District;
 import edu.cmart.entity.Ward;
-import edu.cmart.model.dto.DistrictDto;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.dto.WardDto;
-import edu.cmart.model.mapper.DistrictMapper;
 import edu.cmart.model.mapper.WardMapper;
-import edu.cmart.repository.DistrictRepository;
 import edu.cmart.repository.WardRepository;
-import edu.cmart.service.DistrictService;
 import edu.cmart.service.WardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

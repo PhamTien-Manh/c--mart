@@ -1,7 +1,6 @@
 package edu.cmart.controller;
 
 import edu.cmart.exception.core.ArchitectureException;
-import edu.cmart.facade.CityFacade;
 import edu.cmart.facade.DistrictFacade;
 import edu.cmart.model.dto.DistrictDto;
 import edu.cmart.model.dto.SearchCriteria;

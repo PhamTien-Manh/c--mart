@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ServiceCarFacade {
@@ -38,16 +36,16 @@ public class ServiceCarFacade {
         return dtos;
     }
 
-    public List<ServiceCarDto> findAllByCityId(Long cityId) throws ArchitectureException{
-        if(cityId == null){
-            throw new InvalidParamException();
-        }
-        List<ServiceCarDto> dtos = serviceCarService.findAllByCityId(cityId);
-        if(dtos.isEmpty()){
-            throw new EntityNotFoundException();
-        }
-        return dtos;
-    }
+//    public List<ServiceCarDto> findAllByCityId(Long cityId) throws ArchitectureException{
+//        if(cityId == null){
+//            throw new InvalidParamException();
+//        }
+//        List<ServiceCarDto> dtos = serviceCarService.findAllByCityId(cityId);
+//        if(dtos.isEmpty()){
+//            throw new EntityNotFoundException();
+//        }
+//        return dtos;
+//    }
 
     public ServiceCarDto findById(Long serviceCarId) throws ArchitectureException{
         if(serviceCarId == null)

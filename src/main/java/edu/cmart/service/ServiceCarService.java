@@ -5,14 +5,12 @@ import edu.cmart.model.dto.ServiceCarDto;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public interface ServiceCarService {
 
     Page<ServiceCarDto> findAll(SearchCriteria searchCriteria);
 
-    List<ServiceCarDto> findAllByCityId(Long cityId);
+//    List<ServiceCarDto> findAllByCityId(Long cityId);
 
     Page<ServiceCarDto> findAllByTypeVehicleId(Long typeVehicleId, SearchCriteria searchCriteria);
 

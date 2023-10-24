@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 import static edu.cmart.util.method.Search.getPageable;
@@ -28,11 +27,11 @@ public class ServiceCarServiceImpl implements ServiceCarService {
         return serviceCars.map(serviceCarMapper::apply);
     }
 
-    @Override
-    public List<ServiceCarDto> findAllByCityId(Long cityId) {
-        List<ServiceCar> serviceCars = serviceCarRepository.findAllByCityId(cityId);
-        return serviceCars.stream().map(serviceCarMapper::apply).toList();
-    }
+//    @Override
+//    public List<ServiceCarDto> findAllByCityId(Long cityId) {
+//        List<ServiceCar> serviceCars = serviceCarRepository.findAllByCityId(cityId);
+//        return serviceCars.stream().map(serviceCarMapper::apply).toList();
+//    }
 
     @Override
     public Page<ServiceCarDto> findAllByTypeVehicleId(Long typeVehicleId, SearchCriteria searchCriteria) {

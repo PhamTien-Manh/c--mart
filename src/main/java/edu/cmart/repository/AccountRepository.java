@@ -2,24 +2,27 @@ package edu.cmart.repository;
 
 import edu.cmart.entity.Account;
 import edu.cmart.entity.enums.Gender;
-import edu.cmart.entity.enums.Role;
+import edu.cmart.entity.enums.TypeRoles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Page<Account> findAllByRoleAccountsRole(Role role, Pageable pageable);
+    Page<Account> findAllByRolesTypeRoles(TypeRoles typeRoles, Pageable pageable);
 
-    Page<Account> findAllByRoleAccountsRoleAndIsActivated(Role role, Boolean isActivated, Pageable pageable);
+    Page<Account> findAllByRolesTypeRolesAndIsActivated(TypeRoles typeRoles, Boolean isActivated, Pageable pageable);
 
-    Page<Account> findAllByRoleAccountsRoleAndGender(Role role, Gender gender, Pageable pageable);
+    Page<Account> findAllByRolesTypeRolesAndGender(TypeRoles typeRoles, Gender gender, Pageable pageable);
 
-    Page<Account> findAllByRoleAccountsRoleAndFullnameContaining(Role role, String fullname, Pageable pageable);
+    Page<Account> findAllByRolesTypeRolesAndFullnameContaining(TypeRoles typeRoles, String fullname, Pageable pageable);
 
-    Page<Account> findAllByRoleAccountsRoleAndPhoneNumberContaining(Role role, String phoneNumber, Pageable pageable);
+    Page<Account> findAllByRolesTypeRolesAndPhoneNumberContaining(TypeRoles typeRoles, String phoneNumber, Pageable pageable);
+
+    Optional<Account> findByPhoneNumber(String phoneNumber);
 
 }
