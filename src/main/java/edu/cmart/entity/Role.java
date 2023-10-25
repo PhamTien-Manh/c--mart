@@ -25,7 +25,7 @@ public class Role {
     @Column(nullable = false)
     private TypeRoles typeRoles;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountId")
     private Account account;
 

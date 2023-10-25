@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class RoleValueIndex {
 
-    public static List<Integer> getIndex(Set<Role> roles) {
+    public static List<Integer> getIndex(List<Role> roles) {
         List<Integer> index = new ArrayList<>();
         for (Role role : roles) {
             index.add(role.getTypeRoles().ordinal());

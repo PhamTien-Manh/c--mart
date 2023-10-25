@@ -47,7 +47,7 @@ public class AccountController {
                     description = "response failed maybe role not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -57,7 +57,7 @@ public class AccountController {
                     description = "response failed maybe role is not exist or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -95,7 +95,7 @@ public class AccountController {
                     description = "response failed maybe role and gender not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -105,7 +105,7 @@ public class AccountController {
                     description = "response failed maybe role and gender is not exist or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -146,7 +146,7 @@ public class AccountController {
                     description = "response failed maybe role and isActivated not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -156,7 +156,7 @@ public class AccountController {
                     description = "response failed maybe role and isActivated is not exist or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -197,7 +197,7 @@ public class AccountController {
                     description = "response failed maybe role and fullname not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -207,7 +207,7 @@ public class AccountController {
                     description = "response failed maybe role and fullname is not exist or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -248,7 +248,7 @@ public class AccountController {
                     description = "response failed maybe role and phoneNumber not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -258,7 +258,7 @@ public class AccountController {
                     description = "response failed maybe role and phoneNumber is not exist or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -297,7 +297,7 @@ public class AccountController {
                     description = "response failed maybe account not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -308,12 +308,12 @@ public class AccountController {
     }
 
     /**
-     * Just user, admin, staff can access
+     * Just admin, staff can access
      */
     @PostMapping("/create")
     @Operation(
             summary = "Create account",
-            description = "Add new account for database, just user, admin, staff can access")
+            description = "Add new account with roles staff or driver for database, just admin, staff can access")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -330,7 +330,7 @@ public class AccountController {
                     description = "response failed maybe accountDto is null or accountDto is exist",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -340,7 +340,7 @@ public class AccountController {
                     description = "response failed maybe missing field or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     })
@@ -373,7 +373,7 @@ public class AccountController {
                     description = "response failed maybe accountDto is null or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }),
@@ -382,7 +382,7 @@ public class AccountController {
                     description = "response failed maybe accountDto is not found or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }),
@@ -391,7 +391,7 @@ public class AccountController {
                     description = "response failed maybe missing field or error param",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = String.class),
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     })

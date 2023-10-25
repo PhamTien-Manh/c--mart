@@ -75,7 +75,7 @@ public class CustomExceptionHandler {
             Object invalidValue = constraintViolation.getInvalidValue();
             // Tạo lỗi tùy chỉnh
             ErrorResponse response = new ErrorResponse(
-                    "Field " + constraintViolation.getPropertyPath() + " must be not blank, empty or unique",
+                    "Field " + constraintViolation.getPropertyPath() + " must be not empty, oversize or unique",
                     annotationName + " violation on value " + invalidValue
 
             );

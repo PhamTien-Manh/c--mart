@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 @SpringBootApplication
 public class CMartApplication {
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args){
         SpringApplication.run(CMartApplication.class, args);
     }
 

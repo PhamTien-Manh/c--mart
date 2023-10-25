@@ -1,9 +1,17 @@
 package edu.cmart.controller;
 
+import edu.cmart.exception.core.ArchitectureException;
+import edu.cmart.facade.AuthenticationFacade;
 import edu.cmart.model.request.LoginRequest;
 import edu.cmart.model.request.RegisterRequest;
 import edu.cmart.model.response.JwtAuthenticationResponse;
 import edu.cmart.service.AuthenticationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,16 +24,95 @@ import static edu.cmart.util.api.ConstantsApi.Auth.AUTH_PATH;
 @RestController
 @RequestMapping(AUTH_PATH)
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "API for Authentication login and register")
 public class AuthenticationController {
-    private final AuthenticationService authenticationService;
-    // Phương thức signup() nhận vào thông tin đăng ký của người dùng và trả về
+    private final AuthenticationFacade authenticationFacade;
+
+    /**
+     * Only user can register
+     */
     @PostMapping("/register")
-    public ResponseEntity<JwtAuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.register(request));
+    @Operation(summary = "Register new account", description = "Only user can register")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Register successfully",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = JwtAuthenticationResponse.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Register failed, maybe phone number already exists",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Register failed, maybe phone number oversize or missing field",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            )
+    })
+    public ResponseEntity<JwtAuthenticationResponse> register(@RequestBody RegisterRequest request) throws ArchitectureException {
+        return ResponseEntity.ok(authenticationFacade.register(request));
     }
-    // Phương thức signin() nhận vào thông tin đăng nhập của người dùng và trả về
+
+    /**
+     * Anyone can log in
+     */
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authenticationService.login(request));
+    @Operation(summary = "Login account", description = "Anyone can log in")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Login successfully",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = JwtAuthenticationResponse.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Login failed, maybe phone number not found",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Login failed, maybe phone number or password is missing",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            )
+    })
+    public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody LoginRequest request) throws ArchitectureException {
+        return ResponseEntity.ok(authenticationFacade.login(request));
     }
 }

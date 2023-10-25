@@ -21,6 +21,4 @@ public class AccountDto {
     private String image;
     private Boolean isActivated;
     private Date birthday;
-
-
 }
