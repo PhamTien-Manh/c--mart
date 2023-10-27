@@ -9,6 +9,8 @@ public class ConstantsException {
             public static final String INVALID_PARAM = "Invalid request params";
             public static final String ID_MUST_BE_NULL_CODE = "0002";
             public static final String ID_MUST_BE_NULL = "Id must be null when creating new entity";
+            public static final String CAN_NOT_CHANGE_CODE = "0003";
+            public static final String CAN_NOT_CHANGE = " can not change";
         }
     }
 

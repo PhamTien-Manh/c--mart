@@ -64,7 +64,7 @@ public class JwtServiceImpl implements JwtService {
     private String generateToken(Map<String, Object> extraClaims) {
         return Jwts.builder().setClaims(extraClaims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 // Đoạn này sẽ tạo ra chữ ký cho token của người dùng bằng thuật toán HS256
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }

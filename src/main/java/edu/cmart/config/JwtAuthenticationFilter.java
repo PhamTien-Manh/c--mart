@@ -1,7 +1,6 @@
 package edu.cmart.config;
 
 import edu.cmart.entity.Account;
-import edu.cmart.service.AccountService;
 import edu.cmart.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,7 +28,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final AccountService accountService;
 
     /*
     *  Phương thức doFilterInternal() sẽ được thực thi mỗi khi có request tới server.

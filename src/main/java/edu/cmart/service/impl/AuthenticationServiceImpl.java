@@ -12,13 +12,9 @@ import edu.cmart.repository.RoleRepository;
 import edu.cmart.service.AuthenticationService;
 import edu.cmart.service.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import static edu.cmart.util.method.RoleValueIndex.getIndex;
 
@@ -26,9 +22,9 @@ import static edu.cmart.util.method.RoleValueIndex.getIndex;
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final AccountRepository accountRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final RoleRepository roleRepository;
+    private final EncodePassAndMapperImpl encodePassAndMapper;
 
     /*
      *  Phương thức signup() nhận vào thông tin đăng ký của người dùng và trả về
@@ -74,18 +70,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         // Nếu chưa thì tạo mới và lưu để lấy id
         else {
-            Account newAccount =
-                Account
-                    .builder()
-                    .phoneNumber(request.getPhoneNumber())
-                    .fullname(request.getFullName())
-                    .gender(request.getGender())
-                    .birthday(request.getBirthday())
-                    .password(passwordEncoder.encode(request.getPassword()))
-                    .quickPassword(passwordEncoder.encode(request.getQuickPassword()))
-                    .build();
+            Account newAccount = encodePassAndMapper.encodePassAndMapper(request);
+
             account = accountRepository.save(newAccount);
         }
         return account;
     }
+
+
 }

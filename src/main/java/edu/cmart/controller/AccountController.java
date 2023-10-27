@@ -4,6 +4,7 @@ import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.AccountFacade;
 import edu.cmart.model.dto.AccountDto;
 import edu.cmart.model.dto.SearchCriteria;
+import edu.cmart.model.request.RegisterRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,10 +28,10 @@ public class AccountController {
     private final AccountFacade accountFacade;
 
     /**
-     * Only admin can access
+     * Only admin or staff can access
      */
     @GetMapping("{role}")
-    @Operation(summary = "Find all account by role", description = "Find all account by role, only admin can access")
+    @Operation(summary = "Find all account by role", description = "Find all account by role, only admin or staff can access")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -310,7 +311,7 @@ public class AccountController {
     /**
      * Just admin, staff can access
      */
-    @PostMapping("/create")
+    @PostMapping("/{role}/create")
     @Operation(
             summary = "Create account",
             description = "Add new account with roles staff or driver for database, just admin, staff can access")
@@ -346,17 +347,19 @@ public class AccountController {
                     })
             }
     )
-    public ResponseEntity<Object> create(@RequestBody AccountDto accountDto) throws ArchitectureException {
-        return ResponseEntity.ok(accountFacade.create(accountDto));
+    public ResponseEntity<Object> create(
+            @RequestBody RegisterRequest request,
+            @PathVariable String role) throws ArchitectureException {
+        return ResponseEntity.ok(accountFacade.create(request, role.toUpperCase()));
     }
 
     /**
-     * Just user, admin, staff can access
+     * Just admin, staff can access
      */
     @PutMapping("/update/{accountId}")
     @Operation(
             summary = "Update account",
-            description = "Update account for database, just user, admin, staff can access")
+            description = "Update account for database, just admin, staff can access")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -406,9 +409,9 @@ public class AccountController {
     /**
      * Only admin can access
      * */
-    @PutMapping("/is-lock/{accountId}/{isLock}")
+    @PutMapping("{typeRole}/set-role/{accountId}")
     @Operation(
-            summary = "Lock or unlock account",
+            summary = "Set other role for account",
             description = "Lock or unlock account for database, only admin can access")
     @ApiResponses({
             @ApiResponse(
@@ -438,12 +441,64 @@ public class AccountController {
                     })
             }
     )
-    public ResponseEntity<Object> isLock(
+    public ResponseEntity<Object> setRole(
             @PathVariable Long accountId,
-            @PathVariable Boolean isLock) throws ArchitectureException {
-        accountFacade.isLock(accountId, isLock);
+            @PathVariable String typeRole) throws ArchitectureException {
+        accountFacade.setRole(accountId, typeRole.toUpperCase());
         return ResponseEntity.ok("Update successfully!");
     }
 
+    /**
+     * Just user can access
+     */
+    @PutMapping("/change-profile/{accountId}")
+    @Operation(
+            summary = "Update account",
+            description = "Update account for database, just user can access")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "response success",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = AccountDto.class),
+                                    mediaType = "application/json"
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "response failed maybe accountDto is null or error param",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "response failed maybe accountDto is not found or error param",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "response failed maybe missing field or error param",
+                    content = {
+                            @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
+                                    mediaType = "application/json"
+                            )
+                    })
+    }
+    )
+    public ResponseEntity<Object> changeProfile(
+            @PathVariable Long accountId,
+            @RequestBody AccountDto accountDto) throws ArchitectureException {
+        return ResponseEntity.ok(accountFacade.changeProfile(accountId, accountDto));
+    }
 
 }

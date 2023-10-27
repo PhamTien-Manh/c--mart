@@ -1,10 +1,14 @@
 package edu.cmart.service;
 
+import edu.cmart.entity.Account;
+import edu.cmart.entity.Role;
 import edu.cmart.model.dto.AccountDto;
 import edu.cmart.model.dto.SearchCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface AccountService {
@@ -21,9 +25,11 @@ public interface AccountService {
 
     AccountDto findById(Long accountId);
 
-    AccountDto save(AccountDto accountDto);
+    AccountDto create(Account account, String role, List<Role> roles);
 
-    void isLock(Long accountId, Boolean isLock);
+    AccountDto update(AccountDto accountDto, Account oldAccount);
+
+    void setRole(Role role, String typeRole);
 
     UserDetailsService userDetailsService();
 }

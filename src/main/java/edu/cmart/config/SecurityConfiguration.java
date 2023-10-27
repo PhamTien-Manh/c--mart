@@ -19,14 +19,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import static edu.cmart.util.api.ConstantsApi.Account.ACCOUNT_PATH;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /*
-*  Lớp này sẽ cấu hình thư viện mã hóa mật khẩu là BCryptPasswordEncoder
-*  và cấu hình AuthenticationManager để Spring Security có thể xác thực thông tin người dùng.
-* Ngoài ra, lớp này cũng sẽ cấu hình SecurityFilterChain để xác thực token của người dùng.
-* Phân quyền truy cập cho các API
-* */
+ *  Lớp này sẽ cấu hình thư viện mã hóa mật khẩu là BCryptPasswordEncoder
+ *  và cấu hình AuthenticationManager để Spring Security có thể xác thực thông tin người dùng.
+ * Ngoài ra, lớp này cũng sẽ cấu hình SecurityFilterChain để xác thực token của người dùng.
+ * Phân quyền truy cập cho các API
+ * */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -39,8 +40,53 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/api/v1/resource")
-                                .hasAnyAuthority(TypeRoles.ADMIN.name())
+                                .requestMatchers(
+                                        ACCOUNT_PATH + "/id/**"
+                                )
+                                .authenticated()
+                                // Chỉ có user-active có thể thay đổi thông tin cá nhân
+                                .requestMatchers(
+                                        ACCOUNT_PATH + "/change-profile/**"
+                                )
+                                .hasAnyAuthority(
+                                        TypeRoles.USER_ACTIVE.name(),
+                                        TypeRoles.ADMIN.name()
+                                )
+                                // Staff sẽ được phép xem thông tin user-driver
+                                .requestMatchers(
+                                        ACCOUNT_PATH + "/user_inactive/**",
+                                        ACCOUNT_PATH + "/user_active/**",
+                                        ACCOUNT_PATH + "/driver_inactive/**",
+                                        ACCOUNT_PATH + "/driver_active/**"
+                                )
+                                .hasAnyAuthority(
+                                        TypeRoles.STAFF_SYSTEM.name(),
+                                        TypeRoles.STAFF_SERVICE.name(),
+                                        TypeRoles.ADMIN.name()
+                                )
+                                // Staff_system được phép chỉnh sửa thông tin cơ bản user-driver-staff
+                                .requestMatchers(
+                                        ACCOUNT_PATH + "/staff_service/**",
+                                        ACCOUNT_PATH + "/staff_inactive/**",
+                                        ACCOUNT_PATH + "/driver_active/create/**",
+                                        ACCOUNT_PATH + "/user_active/create/**",
+                                        ACCOUNT_PATH + "/user_active/set-role/**",
+                                        ACCOUNT_PATH + "/driver_active/set-role/**",
+                                        ACCOUNT_PATH + "/user_inactive/set-role/**",
+                                        ACCOUNT_PATH + "/driver_inactive/set-role/**",
+                                        ACCOUNT_PATH + "/update/**"
+                                )
+                                .hasAnyAuthority(
+                                        TypeRoles.STAFF_SYSTEM.name(),
+                                        TypeRoles.ADMIN.name()
+                                )
+                                // Admin toàn quyền
+                                .requestMatchers(
+                                        ACCOUNT_PATH + "/**"
+                                )
+                                .hasAnyAuthority(
+                                        TypeRoles.ADMIN.name()
+                                )
                                 .anyRequest()
                                 .permitAll())
                 .sessionManagement(
@@ -77,7 +123,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    WebMvcConfigurer webMvcConfigurer(){
+    WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {

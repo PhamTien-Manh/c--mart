@@ -5,7 +5,6 @@ import edu.cmart.facade.AuthenticationFacade;
 import edu.cmart.model.request.LoginRequest;
 import edu.cmart.model.request.RegisterRequest;
 import edu.cmart.model.response.JwtAuthenticationResponse;
-import edu.cmart.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
