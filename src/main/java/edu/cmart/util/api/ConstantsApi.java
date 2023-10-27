@@ -11,9 +11,7 @@ public class ConstantsApi {
 
     public static final class Auth {
         public static final String AUTH_PATH = BASE_URL + "/auth";
-//        public static final String LOGIN_PATH = AUTH_PATH + "/login";
-//        public static final String REGISTER_PATH = AUTH_PATH + "/register";
-//        public static final String REFRESH_TOKEN_PATH = AUTH_PATH + "/refresh-token";
+
     }
 
     public static final class Account {
@@ -34,5 +32,9 @@ public class ConstantsApi {
 
     public static final class TypeVehicle {
         public static final String TYPE_VEHICLE_PATH = BASE_URL + "/type-vehicles";
+    }
+
+    public static final class GoogleMap {
+        public static final String GOOGLE_MAP_PATH = BASE_URL + "/google-map";
     }
 }

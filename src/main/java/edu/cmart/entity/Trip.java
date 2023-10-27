@@ -40,11 +40,17 @@ public class Trip {
     @Temporal(TemporalType.TIMESTAMP)
     private Date minTime;
 
-    @Column(columnDefinition = "nvarchar(255) not null")
-    private String startLocation;
+    @Column(nullable = false)
+    private String startLat;
 
-    @Column(columnDefinition = "nvarchar(255) not null")
-    private String finishLocation;
+    @Column(nullable = false)
+    private String startLng;
+
+    @Column(nullable = false)
+    private String finishLat;
+
+    @Column(nullable = false)
+    private String finishLng;
 
     @Column
     private Boolean isScheduled;
