@@ -22,7 +22,7 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     @Column(columnDefinition = "nvarchar(50) not null")
     private String name;
 

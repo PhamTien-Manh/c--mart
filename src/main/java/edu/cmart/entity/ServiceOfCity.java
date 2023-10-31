@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "serviceCars")
+@Table(name = "serviceOfCities")
 @Builder
 public class ServiceOfCity {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

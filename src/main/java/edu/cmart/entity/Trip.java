@@ -41,16 +41,16 @@ public class Trip {
     private Date minTime;
 
     @Column(nullable = false)
-    private String startLat;
+    private Double startLat;
 
     @Column(nullable = false)
-    private String startLng;
+    private Double startLng;
 
     @Column(nullable = false)
-    private String finishLat;
+    private Double finishLat;
 
     @Column(nullable = false)
-    private String finishLng;
+    private Double finishLng;
 
     @Column
     private Boolean isScheduled;

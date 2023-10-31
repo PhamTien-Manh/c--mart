@@ -45,12 +45,7 @@ public class GoogleMapServiceImpl implements GoogleMapService {
     }
 
     @Override
-    public GeocodingResult[] getGeocode(DistanceRequest distanceRequest) throws IOException, InterruptedException, ApiException {
-        GeocodingResult[] results = new GeocodingResult[2];
-        LatLng origin = new LatLng(distanceRequest.getFirstLat(), distanceRequest.getFirstLng());
-        LatLng destination = new LatLng(distanceRequest.getSecondLat(), distanceRequest.getSecondLng());
-        results[0] = GeocodingApi.reverseGeocode(geoApiContext, origin).await()[0];
-        results[1] = GeocodingApi.reverseGeocode(geoApiContext, destination).await()[0];
-        return results;
+    public GeocodingResult[] getAddress(LatLng latLng) throws IOException, InterruptedException, ApiException {
+        return GeocodingApi.reverseGeocode(geoApiContext, latLng).await();
     }
 }

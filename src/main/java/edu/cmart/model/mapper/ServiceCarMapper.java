@@ -15,7 +15,6 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ServiceCarMapper implements Function<ServiceCar, ServiceCarDto> {
 
-    private final CityRepository cityRepository;
     private final TypeVehicleRepository typeVehicleRepository;
 
     @Override
@@ -29,12 +28,11 @@ public class ServiceCarMapper implements Function<ServiceCar, ServiceCarDto> {
                 .fixedKm(serviceCar.getFixedKm())
                 .isActived(serviceCar.getIsActived())
                 .typeVehicleId(serviceCar.getTypeVehicle().getId())
+                .typeVehicleName(serviceCar.getTypeVehicle().getName())
                 .build();
     }
 
-    public ServiceCar applyToServiceCar(ServiceCarDto serviceCarDto) {
-        City city = cityRepository.findById(serviceCarDto.getCityId()).get();
-        TypeVehicle typeVehicle = typeVehicleRepository.findById(serviceCarDto.getTypeVehicleId()).get();
+    public ServiceCar applyToServiceCar(ServiceCarDto serviceCarDto, TypeVehicle typeVehicle) {
         return ServiceCar
                 .builder()
                 .id(serviceCarDto.getId())

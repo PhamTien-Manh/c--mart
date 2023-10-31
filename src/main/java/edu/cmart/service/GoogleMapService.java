@@ -3,6 +3,7 @@ package edu.cmart.service;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
 import edu.cmart.model.request.DistanceRequest;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,5 @@ public interface GoogleMapService {
 
     GeocodingResult[] getCoordinates(String[] addresses) throws IOException, InterruptedException, ApiException;
 
-    GeocodingResult[] getGeocode(DistanceRequest distanceRequest) throws IOException, InterruptedException, ApiException;
+    GeocodingResult[] getAddress(LatLng latLng) throws IOException, InterruptedException, ApiException;
 }

@@ -2,6 +2,7 @@ package edu.cmart.controller;
 
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.CityFacade;
+import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.dto.CityDto;
 import edu.cmart.model.dto.SearchCriteria;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,7 +70,8 @@ public class CityController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(cityFacade.findAll(new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(HttpStatus.OK,
+                cityFacade.findAll(new SearchCriteria(page, size, columSort)), true);
     }
 
     /**
@@ -125,7 +128,8 @@ public class CityController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(cityFacade.findAllByName(name, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(HttpStatus.OK,
+                cityFacade.findAllByName(name, new SearchCriteria(page, size, columSort)), true);
     }
 
     /**
@@ -177,7 +181,7 @@ public class CityController {
             )}
     )
     public ResponseEntity<Object> findById(@PathVariable Long cityId) throws ArchitectureException {
-        return ResponseEntity.ok(cityFacade.findById(cityId));
+        return ResponseHandler.response(HttpStatus.OK, cityFacade.findById(cityId), true);
     }
 
     /**
@@ -219,7 +223,7 @@ public class CityController {
     }
     )
     public ResponseEntity<Object> create(@RequestBody CityDto cityDto) throws ArchitectureException {
-        return ResponseEntity.ok(cityFacade.create(cityDto));
+        return ResponseHandler.response(HttpStatus.OK, cityFacade.create(cityDto), true);
     }
 
     /**
@@ -272,7 +276,7 @@ public class CityController {
     }
     )
     public ResponseEntity<Object> update(@PathVariable Long cityId, @RequestBody CityDto cityDto) throws ArchitectureException {
-        return ResponseEntity.ok(cityFacade.update(cityId, cityDto));
+        return ResponseHandler.response(HttpStatus.OK, cityFacade.update(cityId, cityDto), true);
     }
 
     /**
@@ -317,6 +321,6 @@ public class CityController {
     )
     public ResponseEntity<Object> delete(@PathVariable Long cityId) throws ArchitectureException {
         cityFacade.delete(cityId);
-        return ResponseEntity.ok("Delete city success");
+        return ResponseHandler.response(HttpStatus.OK, "Delete successfully!", true);
     }
 }

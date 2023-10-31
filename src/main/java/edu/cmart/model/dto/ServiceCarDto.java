@@ -22,7 +22,6 @@ public class ServiceCarDto {
     @NonNull
     private Boolean isActived;
     @NonNull
-    private Long cityId;
-    @NonNull
     private Long typeVehicleId;
+    private String typeVehicleName;
 }

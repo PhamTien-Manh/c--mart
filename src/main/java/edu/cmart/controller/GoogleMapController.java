@@ -4,8 +4,10 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.GoogleMapFacade;
+import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.request.DistanceRequest;
 import edu.cmart.service.GoogleMapService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +18,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,10 +83,11 @@ public class GoogleMapController {
             )}
     )
     @PostMapping("/distance")
-    public ResponseEntity<DistanceMatrix> getDistance(
+    public ResponseEntity<Object> getDistance(
             @RequestBody DistanceRequest distanceRequest
             ) throws IOException, InterruptedException, ApiException, ArchitectureException {
-        return ResponseEntity.ok(googleMapFacade.getDistance(distanceRequest));
+        return ResponseHandler.response(HttpStatus.OK,
+                googleMapFacade.getDistance(distanceRequest), true);
     }
 
     @Operation(summary = "Get coordinates gg map", description = "Get coordinates gg map, anyone can access")
@@ -130,10 +134,11 @@ public class GoogleMapController {
             )}
     )
     @PostMapping("/get-coordinates")
-    public ResponseEntity<GeocodingResult[]> getCoordinates(
+    public ResponseEntity<Object> getCoordinates(
             @RequestBody String[] addresses
     ) throws IOException, InterruptedException, ApiException, ArchitectureException {
-        return ResponseEntity.ok(googleMapFacade.getCoordinates(addresses));
+        return ResponseHandler.response(HttpStatus.OK,
+                googleMapFacade.getCoordinates(addresses), true);
     }
 
     @Operation(summary = "Get address gg map", description = "Get address gg map, anyone can access")
@@ -180,9 +185,10 @@ public class GoogleMapController {
             )}
     )
     @PostMapping("/get-address")
-    public ResponseEntity<GeocodingResult[]> getAddress(
-            @RequestBody DistanceRequest distanceRequest
+    public ResponseEntity<Object> getAddress(
+            @RequestBody LatLng latLng
     ) throws IOException, InterruptedException, ApiException, ArchitectureException {
-        return ResponseEntity.ok(googleMapFacade.getGeocode(distanceRequest));
+        return ResponseHandler.response(HttpStatus.OK,
+                googleMapFacade.getAddress(latLng), true);
     }
 }

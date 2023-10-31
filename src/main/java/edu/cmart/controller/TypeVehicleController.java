@@ -3,6 +3,7 @@ package edu.cmart.controller;
 
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.TypeVehicleFacade;
+import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.dto.TypeVehicleDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +56,7 @@ public class TypeVehicleController {
             )}
     )
     public ResponseEntity<Object> findAll() throws ArchitectureException {
-        return ResponseEntity.ok(typeVehicleFacade.findAll());
+        return ResponseHandler.response(HttpStatus.OK, typeVehicleFacade.findAll(), true);
     }
 
     /**
@@ -105,7 +107,7 @@ public class TypeVehicleController {
             )}
     )
     public ResponseEntity<Object> findById(@PathVariable("typeVehicleId") Long typeVehicleId) throws ArchitectureException {
-        return ResponseEntity.ok(typeVehicleFacade.findById(typeVehicleId));
+        return ResponseHandler.response(HttpStatus.OK, typeVehicleFacade.findById(typeVehicleId), true);
     }
 
     /**
@@ -146,7 +148,7 @@ public class TypeVehicleController {
             )}
     )
     public ResponseEntity<Object> create(@RequestBody TypeVehicleDto dto) throws ArchitectureException {
-        return ResponseEntity.ok(typeVehicleFacade.create(dto));
+        return ResponseHandler.response(HttpStatus.OK, typeVehicleFacade.create(dto), true);
     }
 
     /**
@@ -201,7 +203,7 @@ public class TypeVehicleController {
     }
     )
     public ResponseEntity<Object> update(@PathVariable("typeVehicleId") Long typeVehicleId, @RequestBody TypeVehicleDto dto) throws ArchitectureException {
-        return ResponseEntity.ok(typeVehicleFacade.update(typeVehicleId, dto));
+        return ResponseHandler.response(HttpStatus.OK, typeVehicleFacade.update(typeVehicleId, dto), true);
     }
 
     /**
@@ -254,6 +256,6 @@ public class TypeVehicleController {
     )
     public ResponseEntity<Object> delete(@PathVariable("typeVehicleId") Long typeVehicleId) throws ArchitectureException {
         typeVehicleFacade.deleteById(typeVehicleId);
-        return ResponseEntity.ok("Delete type vehicle success");
+        return ResponseHandler.response(HttpStatus.OK, "Delete successfully!", true);
     }
 }

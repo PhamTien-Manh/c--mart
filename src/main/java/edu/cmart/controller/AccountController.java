@@ -2,6 +2,7 @@ package edu.cmart.controller;
 
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.AccountFacade;
+import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.dto.AccountDto;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.request.RegisterRequest;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +72,11 @@ public class AccountController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(accountFacade.findAllByRole(role, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(
+                HttpStatus.OK,
+                accountFacade.findAllByRole(
+                        role, new SearchCriteria(page, size, columSort)),
+                true);
     }
 
     /**
@@ -119,9 +125,10 @@ public class AccountController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(
-                accountFacade.findAllByRoleAndGender(
-                        role, gender, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(
+                HttpStatus.OK,
+                accountFacade.findAllByRoleAndGender(role, gender, new SearchCriteria(page, size, columSort)),
+                true);
     }
 
     /**
@@ -170,9 +177,10 @@ public class AccountController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(
-                accountFacade.findAllByRoleAndActivated(
-                        role, isActivated, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(
+                HttpStatus.OK,
+                accountFacade.findAllByRoleAndActivated(role, isActivated, new SearchCriteria(page, size, columSort)),
+                true);
     }
 
     /**
@@ -221,9 +229,10 @@ public class AccountController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(
-                accountFacade.findAllByRoleAndFullname(
-                        role, fullname, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(
+                HttpStatus.OK,
+                accountFacade.findAllByRoleAndFullname(role, fullname, new SearchCriteria(page, size, columSort)),
+                true);
     }
 
     /**
@@ -272,9 +281,10 @@ public class AccountController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(
-                accountFacade.findAllByRoleAndPhoneNumber(
-                        role, phoneNumber, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(
+                HttpStatus.OK,
+                accountFacade.findAllByRoleAndPhoneNumber(role, phoneNumber, new SearchCriteria(page, size, columSort)),
+                true);
     }
 
     /**
@@ -305,7 +315,7 @@ public class AccountController {
             )}
     )
     public ResponseEntity<Object> findById(@PathVariable Long accountId) throws ArchitectureException {
-        return ResponseEntity.ok(accountFacade.findById(accountId));
+        return ResponseHandler.response(HttpStatus.OK, accountFacade.findById(accountId), true);
     }
 
     /**
@@ -345,12 +355,12 @@ public class AccountController {
                                     mediaType = "application/json"
                             )
                     })
-            }
+    }
     )
     public ResponseEntity<Object> create(
             @RequestBody RegisterRequest request,
             @PathVariable String role) throws ArchitectureException {
-        return ResponseEntity.ok(accountFacade.create(request, role.toUpperCase()));
+        return ResponseHandler.response(HttpStatus.OK, accountFacade.create(request, role.toUpperCase()), true);
     }
 
     /**
@@ -398,17 +408,17 @@ public class AccountController {
                                     mediaType = "application/json"
                             )
                     })
-            }
+    }
     )
     public ResponseEntity<Object> update(
             @PathVariable Long accountId,
             @RequestBody AccountDto accountDto) throws ArchitectureException {
-        return ResponseEntity.ok(accountFacade.update(accountId, accountDto));
+        return ResponseHandler.response(HttpStatus.OK, accountFacade.update(accountId, accountDto), true);
     }
 
     /**
      * Only admin can access
-     * */
+     */
     @PutMapping("{typeRole}/set-role/{accountId}")
     @Operation(
             summary = "Set other role for account",
@@ -439,13 +449,13 @@ public class AccountController {
                                     mediaType = "application/json"
                             )
                     })
-            }
+    }
     )
     public ResponseEntity<Object> setRole(
             @PathVariable Long accountId,
             @PathVariable String typeRole) throws ArchitectureException {
         accountFacade.setRole(accountId, typeRole.toUpperCase());
-        return ResponseEntity.ok("Update successfully!");
+        return ResponseHandler.response(HttpStatus.OK, "Set role successfully!", true);
     }
 
     /**
@@ -498,7 +508,7 @@ public class AccountController {
     public ResponseEntity<Object> changeProfile(
             @PathVariable Long accountId,
             @RequestBody AccountDto accountDto) throws ArchitectureException {
-        return ResponseEntity.ok(accountFacade.changeProfile(accountId, accountDto));
+        return ResponseHandler.response(HttpStatus.OK, accountFacade.changeProfile(accountId, accountDto), true);
     }
 
 }

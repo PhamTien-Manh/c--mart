@@ -37,4 +37,8 @@ public class ConstantsApi {
     public static final class GoogleMap {
         public static final String GOOGLE_MAP_PATH = BASE_URL + "/google-map";
     }
+
+    public static final class ServiceCar {
+        public static final String SERVICE_CAR_PATH = BASE_URL + "/service-car";
+    }
 }

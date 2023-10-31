@@ -1,6 +1,7 @@
 package edu.cmart.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,20 +21,25 @@ public class ServiceCar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Min(0)
     @Column(nullable = false)
     private Double fixedPrice;
 
+    @Min(0)
     @Column(nullable = false)
     private Double priceFluctuates;
 
+    @Min(0)
     @Column(nullable = false)
     private Double timeFluctuates;
 
+    @Min(0)
     @Column(nullable = false)
     private Double fixedKm;
 
+    @Builder.Default
     @Column(nullable = false)
-    private Boolean isActived;
+    private Boolean isActived = true;
 
     @OneToMany(mappedBy = "serviceCar")
     private Set<ServiceOfCity> serviceOfCities;

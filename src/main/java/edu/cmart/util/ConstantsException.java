@@ -11,6 +11,8 @@ public class ConstantsException {
             public static final String ID_MUST_BE_NULL = "Id must be null when creating new entity";
             public static final String CAN_NOT_CHANGE_CODE = "0003";
             public static final String CAN_NOT_CHANGE = " can not change";
+            public static final String FOREIGN_KEY_IS_NOT_FOUND_CODE = "000003";
+            public static final String FOREIGN_KEY_IS_NOT_FOUND = "Id foreign key is not found";
         }
     }
 

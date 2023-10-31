@@ -3,6 +3,7 @@ package edu.cmart.facade;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
 import edu.cmart.exception.common.InvalidParamException;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.exception.entity.EntityNotFoundException;
@@ -41,11 +42,11 @@ public class GoogleMapFacade {
         return geocodingResults;
     }
 
-    public GeocodingResult[] getGeocode(DistanceRequest distanceRequest) throws ArchitectureException, IOException, InterruptedException, ApiException {
-        if (distanceRequest == null) {
+    public GeocodingResult[] getAddress(LatLng latLng) throws ArchitectureException, IOException, InterruptedException, ApiException {
+        if (latLng == null) {
             throw new InvalidParamException();
         }
-        GeocodingResult[] geocodingResults = googleMapService.getGeocode(distanceRequest);
+        GeocodingResult[] geocodingResults = googleMapService.getAddress(latLng);
         if (geocodingResults == null) {
             throw new EntityNotFoundException();
         }

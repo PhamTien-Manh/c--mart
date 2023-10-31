@@ -2,6 +2,7 @@ package edu.cmart.controller;
 
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.WardFacade;
+import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.dto.WardDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,7 +69,8 @@ public class WardController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(wardFacade.findAll(new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(HttpStatus.OK,
+                wardFacade.findAll(new SearchCriteria(page, size, columSort)), true);
     }
 
     /**
@@ -123,7 +126,8 @@ public class WardController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(wardFacade.findAllByDistrictId(districtId, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(HttpStatus.OK,
+                wardFacade.findAllByDistrictId(districtId, new SearchCriteria(page, size, columSort)), true);
     }
 
     /**
@@ -179,7 +183,8 @@ public class WardController {
             @RequestParam(defaultValue = "5") Integer size,
             @RequestParam(defaultValue = "id") String columSort
     ) throws ArchitectureException {
-        return ResponseEntity.ok(wardFacade.findAllByName(name, new SearchCriteria(page, size, columSort)));
+        return ResponseHandler.response(HttpStatus.OK,
+                wardFacade.findAllByName(name, new SearchCriteria(page, size, columSort)), true);
     }
 
     /**
@@ -230,7 +235,7 @@ public class WardController {
             )}
     )
     public ResponseEntity<Object> findById(@PathVariable Long wardId) throws ArchitectureException {
-        return ResponseEntity.ok(wardFacade.findById(wardId));
+        return ResponseHandler.response(HttpStatus.OK, wardFacade.findById(wardId), true);
     }
 
     /**
@@ -271,7 +276,7 @@ public class WardController {
             )}
     )
     public ResponseEntity<Object> create(@RequestBody WardDto wardDto) throws ArchitectureException {
-        return ResponseEntity.ok(wardFacade.create(wardDto));
+        return ResponseHandler.response(HttpStatus.OK, wardFacade.create(wardDto), true);
     }
 
     /**
@@ -323,7 +328,7 @@ public class WardController {
             )}
     )
     public ResponseEntity<Object> update(@PathVariable Long wardId, @RequestBody WardDto wardDto) throws ArchitectureException {
-        return ResponseEntity.ok(wardFacade.update(wardId, wardDto));
+        return ResponseHandler.response(HttpStatus.OK, wardFacade.update(wardId, wardDto), true);
     }
 
     /**
@@ -378,6 +383,6 @@ public class WardController {
     )
     public ResponseEntity<Object> delete(@PathVariable Long wardId) throws ArchitectureException {
         wardFacade.delete(wardId);
-        return ResponseEntity.ok("Delete ward success");
+        return ResponseHandler.response(HttpStatus.OK, "Delete successfully!", true);
     }
 }

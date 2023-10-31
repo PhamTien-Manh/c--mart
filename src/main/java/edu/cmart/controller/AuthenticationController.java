@@ -2,6 +2,7 @@ package edu.cmart.controller;
 
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.AuthenticationFacade;
+import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.request.LoginRequest;
 import edu.cmart.model.request.RegisterRequest;
 import edu.cmart.model.response.JwtAuthenticationResponse;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -67,8 +69,8 @@ public class AuthenticationController {
 
             )
     })
-    public ResponseEntity<JwtAuthenticationResponse> register(@RequestBody RegisterRequest request) throws ArchitectureException {
-        return ResponseEntity.ok(authenticationFacade.register(request));
+    public ResponseEntity<Object> register(@RequestBody RegisterRequest request) throws ArchitectureException {
+        return ResponseHandler.response(HttpStatus.OK, authenticationFacade.register(request), true);
     }
 
     /**
@@ -111,7 +113,7 @@ public class AuthenticationController {
 
             )
     })
-    public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody LoginRequest request) throws ArchitectureException {
-        return ResponseEntity.ok(authenticationFacade.login(request));
+    public ResponseEntity<Object> login(@RequestBody LoginRequest request) throws ArchitectureException {
+        return ResponseHandler.response(HttpStatus.OK, authenticationFacade.login(request), true);
     }
 }
