@@ -8,11 +8,11 @@ import lombok.*;
 @Builder
 public class DistanceRequest {
     @NonNull
-    private Double firstLat;
+    private Double startLat;
     @NonNull
-    private Double firstLng;
+    private Double startLng;
     @NonNull
-    private Double secondLat;
+    private Double finishLat;
     @NonNull
-    private Double secondLng;
+    private Double finishLng;
 }

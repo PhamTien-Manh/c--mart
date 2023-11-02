@@ -1,30 +1,42 @@
 package edu.cmart.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import edu.cmart.entity.enums.TypeTrip;
+import lombok.*;
 
 import java.util.Date;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@Data
+@NoArgsConstructor(force = true)
 public class TripDto {
     private Long id;
+    @NonNull
     private Double totalMoney;
+    @NonNull
     private Double distance;
+    @NonNull
     private Date startTime;
     private Date finishTime;
     private Date receiveTime;
-    private Date minTime;
-    private String startLocation;
-    private String finishLocation;
+    @NonNull
+    private Double time;
+    @NonNull
+    private Double startLat;
+    @NonNull
+    private Double startLng;
+    @NonNull
+    private Double finishLat;
+    @NonNull
+    private Double finishLng;
     private Boolean isScheduled;
-    private Boolean isFinished;
-
+    @NonNull
+    private TypeTrip typeTrip;
+    @NonNull
     private Long paymentId;
     private Long promoId;
     private Long roleDriverId;
+    @NonNull
     private Long roleUserId;
 
 }

@@ -15,7 +15,6 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ServiceCarMapper implements Function<ServiceCar, ServiceCarDto> {
 
-    private final TypeVehicleRepository typeVehicleRepository;
 
     @Override
     public ServiceCarDto apply(ServiceCar serviceCar) {

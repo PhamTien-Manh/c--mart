@@ -37,8 +37,8 @@ public class Trip {
     @Temporal(TemporalType.TIMESTAMP)
     private Date receiveTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date minTime;
+    @Column(nullable = false)
+    private Double time;
 
     @Column(nullable = false)
     private Double startLat;

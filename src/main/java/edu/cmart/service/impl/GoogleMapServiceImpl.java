@@ -23,8 +23,8 @@ public class GoogleMapServiceImpl implements GoogleMapService {
 
     @Override
     public DistanceMatrix getDistance(DistanceRequest distanceRequest) throws IOException, InterruptedException, ApiException {
-        LatLng origin = new LatLng(distanceRequest.getFirstLat(), distanceRequest.getFirstLng());
-        LatLng destination = new LatLng(distanceRequest.getSecondLat(), distanceRequest.getSecondLng());
+        LatLng origin = new LatLng(distanceRequest.getStartLat(), distanceRequest.getStartLng());
+        LatLng destination = new LatLng(distanceRequest.getFinishLat(), distanceRequest.getFinishLng());
         return DistanceMatrixApi
                 .newRequest(geoApiContext)
                 .origins(origin)

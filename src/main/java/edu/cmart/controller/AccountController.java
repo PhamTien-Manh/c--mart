@@ -429,6 +429,7 @@ public class AccountController {
                     description = "response success",
                     content = {
                             @Content(
+                                    schema = @Schema(implementation = ResponseHandler.class),
                                     mediaType = "application/json"
                             )
                     }
@@ -438,6 +439,7 @@ public class AccountController {
                     description = "response failed maybe accountId or isLock is null or error param",
                     content = {
                             @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     }),
@@ -446,6 +448,7 @@ public class AccountController {
                     description = "response failed maybe accountId is not exist or error param",
                     content = {
                             @Content(
+                                    schema = @Schema(implementation = ArchitectureException.class),
                                     mediaType = "application/json"
                             )
                     })

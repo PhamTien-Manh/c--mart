@@ -41,4 +41,13 @@ public class ConstantsApi {
     public static final class ServiceCar {
         public static final String SERVICE_CAR_PATH = BASE_URL + "/service-car";
     }
+    public static final class Trip {
+        public static final String TRIP_PATH = BASE_URL + "/trip";
+    }
+    public static final class Promo {
+        public static final String PROMO_PATH = BASE_URL + "/promo";
+    }
+    public static final class Payment {
+        public static final String PAYMENT_PATH = BASE_URL + "/payment";
+    }
 }
