@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -29,6 +31,19 @@ public class Vehicle {
 
     @Column(columnDefinition = "nvarchar(255) not null")
     private String image;
+
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+
+    @Column(nullable = false)
+    private Boolean isActived;
 
     @ManyToOne
     @JoinColumn(name = "serviceCarId")

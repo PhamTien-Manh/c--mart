@@ -23,9 +23,14 @@ public class JwtAuthenticationResponse{
     private String image;
     private Boolean isActivated;
     private Date birthday;
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 
-    public static JwtAuthenticationResponse apply(Account account, String token) {
+
+    public static JwtAuthenticationResponse apply(
+            Account account,
+            String accessToken,
+            String refreshToken) {
         return JwtAuthenticationResponse
                 .builder()
                 .id(account.getId())
@@ -36,7 +41,8 @@ public class JwtAuthenticationResponse{
                 .image(account.getImage())
                 .isActivated(account.getIsActivated())
                 .birthday(account.getBirthday())
-                .token(token)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
     }
 }

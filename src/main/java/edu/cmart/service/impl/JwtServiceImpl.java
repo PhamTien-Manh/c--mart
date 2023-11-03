@@ -54,17 +54,34 @@ public class JwtServiceImpl implements JwtService {
     }
     // Phương thức này sẽ tạo ra token từ thông tin người dùng
     @Override
-    public String generateToken(Account account, List<Integer> roles) {
+    public String generateAccessToken(Account account, List<Integer> roles) {
+        return generateAccessToken(getExtraClaims(account, roles));
+    }
+
+    @Override
+    public String generateRefreshToken(Account account, List<Integer> roles) {
+        return generateRefreshToken(getExtraClaims(account, roles));
+    }
+
+    public Map<String, Object> getExtraClaims(Account account, List<Integer> roles) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("phoneNumber", account.getPhoneNumber());
         extraClaims.put("accountId", account.getId());
         extraClaims.put("roles", roles);
-        return generateToken(extraClaims);
+        return extraClaims;
     }
-    private String generateToken(Map<String, Object> extraClaims) {
+    private String generateAccessToken(Map<String, Object> extraClaims) {
         return Jwts.builder().setClaims(extraClaims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                // Đoạn này sẽ tạo ra chữ ký cho token của người dùng bằng thuật toán HS256
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+    }
+
+    private String generateRefreshToken(Map<String, Object> extraClaims) {
+        return Jwts.builder().setClaims(extraClaims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 30))
                 // Đoạn này sẽ tạo ra chữ ký cho token của người dùng bằng thuật toán HS256
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }

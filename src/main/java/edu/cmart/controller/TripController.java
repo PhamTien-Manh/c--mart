@@ -1,7 +1,6 @@
 package edu.cmart.controller;
 
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.LatLng;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.TripFacade;
 import edu.cmart.model.common.ResponseHandler;

@@ -4,13 +4,11 @@ import edu.cmart.exception.common.IdMustBeNullException;
 import edu.cmart.exception.common.InvalidParamException;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.exception.entity.EntityNotFoundException;
-import edu.cmart.model.dto.PaymentDto;
 import edu.cmart.model.dto.PromoDto;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.service.PromoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -2,7 +2,6 @@ package edu.cmart.model.mapper;
 
 import edu.cmart.entity.Promo;
 import edu.cmart.model.dto.PromoDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;

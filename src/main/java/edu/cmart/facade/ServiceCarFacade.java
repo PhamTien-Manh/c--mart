@@ -13,7 +13,6 @@ import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.dto.ServiceCarDto;
 import edu.cmart.repository.TypeVehicleRepository;
 import edu.cmart.service.ServiceCarService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

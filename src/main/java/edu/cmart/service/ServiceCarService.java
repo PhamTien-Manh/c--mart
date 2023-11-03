@@ -1,7 +1,6 @@
 package edu.cmart.service;
 
 import com.google.maps.model.GeocodingResult;
-import com.google.maps.model.LatLng;
 import edu.cmart.entity.TypeVehicle;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.dto.ServiceCarDto;

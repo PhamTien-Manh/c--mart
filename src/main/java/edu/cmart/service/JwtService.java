@@ -8,7 +8,7 @@ import java.util.List;
 public interface JwtService {
     Account extractUserName(String token);
 
-    String generateToken(Account account, List<Integer> roles);
-
+    String generateAccessToken(Account account, List<Integer> roles);
+    String generateRefreshToken(Account account, List<Integer> roles);
     boolean isTokenValid(String token);
 }

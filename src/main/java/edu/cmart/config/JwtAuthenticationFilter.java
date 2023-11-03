@@ -40,7 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String phoneNumber;
         // Nếu request không chứa Header là Authorization và prefix của token là Bearer
         // thì chúng ta sẽ bỏ qua filter này
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {

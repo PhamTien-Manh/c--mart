@@ -1,11 +1,8 @@
 package edu.cmart.model.mapper;
 
-import edu.cmart.entity.City;
 import edu.cmart.entity.ServiceCar;
 import edu.cmart.entity.TypeVehicle;
 import edu.cmart.model.dto.ServiceCarDto;
-import edu.cmart.repository.CityRepository;
-import edu.cmart.repository.TypeVehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

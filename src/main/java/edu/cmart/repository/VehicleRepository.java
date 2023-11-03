@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
+
+//    @Query("UPDATE Vehicle SET latitude = :latitude, longitude = :longitude, updatedAt = :updatedAt WHERE id = :id")
+//    void setLatLng(Long id, LatLngDriverRequest latLngDriverRequest);
+
 }

@@ -37,8 +37,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         List<Role> rolesNew = getRole(request, roles);
         Account account = rolesNew.get(0).getAccount();
 
-        var jwt = jwtService.generateToken(account, getIndex(rolesNew));
-        return JwtAuthenticationResponse.apply(account, jwt);
+        var accessToken = jwtService.generateAccessToken(account, getIndex(rolesNew));
+        var refreshToken = jwtService.generateRefreshToken(account, getIndex(rolesNew));
+        return JwtAuthenticationResponse.apply(account, accessToken, refreshToken);
     }
 
     /*
@@ -49,9 +50,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public JwtAuthenticationResponse login(LoginRequest request, List<Role> roles) {
         Account account = roles.get(0).getAccount();
         // Tạo chuỗi JWT
-        var jwt = jwtService.generateToken(account, getIndex(roles));
-        return JwtAuthenticationResponse.apply(account, jwt);
+        var accessToken = jwtService.generateAccessToken(account, getIndex(roles));
+        var refreshToken = jwtService.generateRefreshToken(account, getIndex(roles));
+        return JwtAuthenticationResponse.apply(account, accessToken, refreshToken);
     }
+
+    @Override
+    public String getAccessToken(Account account, List<Role> roles) {
+        return jwtService.generateAccessToken(account, getIndex(roles));
+    }
+
 
     public List<Role> getRole(RegisterRequest request, List<Role> roles) {
         // Lấy account để lưu role

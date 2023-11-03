@@ -48,7 +48,6 @@ public class Account implements UserDetails {
     @Column(columnDefinition = "varchar(10) not null unique")
     private String phoneNumber;
 
-    @NotBlank
     @Column(columnDefinition = "varchar(20) unique")
     private String citizenIdentificationCard;
 
@@ -56,7 +55,6 @@ public class Account implements UserDetails {
     @Column(nullable = false)
     private Gender gender;
 
-    @NotBlank
     @Column(columnDefinition = "nvarchar(255)")
     private String image;
 
@@ -70,6 +68,7 @@ public class Account implements UserDetails {
 
     @OneToMany(mappedBy = "account",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Role> roles;
+
 
     public Account(String phoneNumber, Long accountId) {
         this.phoneNumber = phoneNumber;

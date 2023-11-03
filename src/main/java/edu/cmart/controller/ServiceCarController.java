@@ -1,14 +1,12 @@
 package edu.cmart.controller;
 
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.ServiceCarFacade;
 import edu.cmart.model.common.ResponseHandler;
 import edu.cmart.model.dto.SearchCriteria;
 import edu.cmart.model.dto.ServiceCarDto;
-import edu.cmart.model.request.DistanceRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static edu.cmart.util.api.ConstantsApi.ServiceCar.SERVICE_CAR_PATH;
 
