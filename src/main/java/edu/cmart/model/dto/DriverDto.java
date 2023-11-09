@@ -10,5 +10,6 @@ import lombok.*;
 @ToString
 public class DriverDto {
     private AccountDto account;
+    private RoleDto role;
     private VehicleDto vehicle;
 }

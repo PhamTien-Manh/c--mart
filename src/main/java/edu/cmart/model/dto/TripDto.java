@@ -15,7 +15,6 @@ public class TripDto {
     private Double totalMoney;
     @NonNull
     private Double distance;
-    @NonNull
     private Date startTime;
     private Date finishTime;
     private Date receiveTime;

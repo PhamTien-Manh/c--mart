@@ -4,6 +4,7 @@ import com.google.maps.errors.ApiException;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.TripFacade;
 import edu.cmart.model.common.ResponseHandler;
+import edu.cmart.model.dto.TripDto;
 import edu.cmart.model.request.DistanceRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,10 +43,11 @@ public class TripController {
                                     mediaType = "application/json"
                             )
                     }
+
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "response failed maybe accountId or isLock is null or error param",
+                    description = "response failed maybe error param",
                     content = {
                             @Content(
                                     mediaType = "application/json"
@@ -53,7 +55,7 @@ public class TripController {
                     }),
             @ApiResponse(
                     responseCode = "404",
-                    description = "response failed maybe accountId is not exist or error param",
+                    description = "response failed maybe serviceId is not exist or error param",
                     content = {
                             @Content(
                                     mediaType = "application/json"
@@ -66,6 +68,47 @@ public class TripController {
             @PathVariable Long serviceCarId
     ) throws IOException, InterruptedException, ApiException, ArchitectureException {
         return ResponseHandler.response(HttpStatus.OK, tripFacade.getTripByServiceCarAndLatLng(request, serviceCarId), true);
+    }
+
+
+    /**
+     * Anyone can access
+     */
+    @PostMapping("/create/{serviceCarId}")
+    @Operation(summary = "Create trip", description = "Create trip, anyone can access")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "response success",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json"
+                            )
+                    }
+
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "response failed maybe error param",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json"
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "response failed maybe ForeignKey is not exist or error param",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json"
+                            )
+                    })
+            }
+    )
+    public ResponseEntity<Object> create(@RequestBody TripDto tripDto,
+                                         @PathVariable Long serviceCarId)
+            throws ArchitectureException, IOException, InterruptedException, ApiException {
+        return ResponseHandler.response(HttpStatus.OK, tripFacade.create(tripDto, serviceCarId), true);
     }
 
 }

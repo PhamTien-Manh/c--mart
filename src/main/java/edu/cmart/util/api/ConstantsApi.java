@@ -50,4 +50,10 @@ public class ConstantsApi {
     public static final class Payment {
         public static final String PAYMENT_PATH = BASE_URL + "/payment";
     }
+    public static final class Driver {
+        public static final String DRIVER_PATH = BASE_URL + "/driver";
+    }
+    public static final class Message {
+        public static final String MESSAGE_PATH = BASE_URL + "/message";
+    }
 }

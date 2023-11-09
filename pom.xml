@@ -94,13 +94,17 @@
             <artifactId>google-http-client-gson</artifactId>
             <version>1.36.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.google.cloud</groupId>-->
-<!--            <artifactId>google-cloud-language</artifactId>-->
-<!--            <version>1.110.0</version>-->
-<!--        </dependency>-->
-
         <!--        GG Map API-->
+        <!--        Redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--        Web socket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
