@@ -4,26 +4,25 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.LatLng;
 import edu.cmart.entity.Role;
-import edu.cmart.entity.TypeVehicle;
+import edu.cmart.entity.enums.TypeRoles;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.GoogleMapFacade;
 import edu.cmart.model.dto.*;
 import edu.cmart.model.mapper.AccountMapper;
 import edu.cmart.model.mapper.RoleMapper;
-import edu.cmart.model.mapper.VehicleMapper;
 import edu.cmart.model.request.DistanceRequest;
-import edu.cmart.repository.AccountRepository;
 import edu.cmart.repository.RoleRepository;
-import edu.cmart.service.AccountService;
 import edu.cmart.service.DriverService;
+import edu.cmart.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +32,8 @@ public class DriverServiceImpl implements DriverService {
     private final GoogleMapFacade googleMapFacade;
     private final RoleRepository roleRepository;
     private final AccountMapper accountMapper;
-    private final VehicleMapper vehicleMapper;
     private final RoleMapper roleMapper;
+    private final VehicleService vehicleService;
 
     @Override
     public List<LocationDriver> getDriverMostRecent(Long serviceCarId, LatLng latLng) {
@@ -63,11 +62,31 @@ public class DriverServiceImpl implements DriverService {
     public DriverDto getDriverAccept(List<LocationDriver> locationDrivers, LatLng latLng)
             throws ArchitectureException, IOException, InterruptedException, ApiException {
 
+        LocationDriver closestDriver = getClosestDriver(locationDrivers, latLng);
+
+//      Lọc qua danh sách tài xế và tìm tài xế gần nhất
+
+        List<Role> roles = roleRepository.findByAccountId(closestDriver.getId());
+        Role roleDriver = null;
+        for (Role role : roles) {
+            if (role.getTypeRoles().equals(TypeRoles.DRIVER_ACTIVE)) {
+                roleDriver = role;
+            }
+        }
+        AccountDto accountDto = accountMapper.apply(roleDriver.getAccount());
+        VehicleDto vehicleDto = vehicleService.findByRoleId(roleDriver.getId());
+        RoleDto roleDto = roleMapper.apply(roleDriver);
+
+        return new DriverDto(accountDto, roleDto, vehicleDto);
+    }
+
+    public LocationDriver getClosestDriver(List<LocationDriver> locationDrivers, LatLng latLng)
+            throws ArchitectureException, IOException, InterruptedException, ApiException {
+
         LocationDriver closestDriver = null;
         Long shortestMeters = Long.MAX_VALUE;
         Long shortestSeconds = Long.MAX_VALUE;
 
-//      Lọc qua danh sách tài xế và tìm tài xế gần nhất
         for (LocationDriver locationDriver : locationDrivers) {
             DistanceMatrix distanceMatrix = googleMapFacade
                     .getDistance(new DistanceRequest(
@@ -85,11 +104,6 @@ public class DriverServiceImpl implements DriverService {
                 closestDriver = locationDriver;
             }
         }
-        Optional<Role> roleDriver = roleRepository.findById(closestDriver.getId());
-        AccountDto accountDto = accountMapper.apply(roleDriver.get().getAccount());
-        VehicleDto vehicleDto = vehicleMapper.apply(roleDriver.get().getVehicle());
-        RoleDto roleDto = roleMapper.apply(roleDriver.get());
-
-        return new DriverDto(accountDto, roleDto, vehicleDto);
+        return closestDriver;
     }
 }

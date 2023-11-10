@@ -5,9 +5,7 @@ import com.google.maps.model.LatLng;
 import edu.cmart.exception.core.ArchitectureException;
 import edu.cmart.facade.DriverFacade;
 import edu.cmart.model.common.ResponseHandler;
-import edu.cmart.model.dto.DriverDto;
 import edu.cmart.model.dto.LocationDriver;
-import edu.cmart.service.DriverService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,20 +13,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static edu.cmart.util.api.ConstantsApi.Driver.DRIVER_PATH;
@@ -60,8 +50,8 @@ public class DriverController {
                     }
             )}
     )
-    public ResponseEntity<Object> updateLocation(@RequestBody List<LocationDriver> locationDriver)  {
-        return ResponseHandler.response(HttpStatus.OK, "Update location success", true);
+    public List<LocationDriver> updateLocation(@RequestBody List<LocationDriver> locationDriver)  {
+        return locationDriver;
     }
 
     @PostMapping("/get-most-recent/{serviceCarId}")

@@ -1,7 +1,8 @@
 package edu.cmart.service.impl;
 
 import edu.cmart.entity.Vehicle;
-import edu.cmart.model.request.LatLngDriverRequest;
+import edu.cmart.model.dto.VehicleDto;
+import edu.cmart.model.mapper.VehicleMapper;
 import edu.cmart.repository.VehicleRepository;
 import edu.cmart.service.VehicleService;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
-
+    private final VehicleMapper vehicleMapper;
 
     @Override
-    public void setLatLng(Long id, LatLngDriverRequest latLngDriverRequest) {
-//        vehicleRepository.setLatLng(id, latLngDriverRequest);
+    public VehicleDto findByRoleId(Long roleId) {
+        return vehicleMapper.apply(vehicleRepository.findByRoleDriverId(roleId));
     }
 
     @Override

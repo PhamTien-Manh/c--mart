@@ -7,6 +7,7 @@ import edu.cmart.entity.Trip;
 import edu.cmart.model.dto.TripDto;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.function.Function;
 
 @Service
@@ -45,7 +46,7 @@ public class TripMapper implements Function<Trip, TripDto> {
                 .id(tripDto.getId())
                 .totalMoney(tripDto.getTotalMoney())
                 .distance(tripDto.getDistance())
-                .startTime(tripDto.getStartTime())
+                .startTime(new Date())
                 .finishTime(tripDto.getFinishTime())
                 .receiveTime(tripDto.getReceiveTime())
                 .time(tripDto.getTime())

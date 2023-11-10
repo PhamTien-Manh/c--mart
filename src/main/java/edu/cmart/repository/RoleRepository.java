@@ -12,4 +12,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     List<Role> findByAccountId(Long accountId);
 
     List<Role> findAllByAccountPhoneNumber(String phoneNumber);
+
 }

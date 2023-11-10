@@ -56,6 +56,7 @@ public class Trip {
     private Boolean isScheduled;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TypeTrip typeTrip;
 
     @OneToOne(mappedBy = "trip")

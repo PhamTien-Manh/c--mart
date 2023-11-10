@@ -60,7 +60,7 @@ public class TripFacade {
         Promo promo = promoRepository.findById(tripDto.getPromoId()).orElse(null);
 
         if (payment == null || roleUser == null) {
-            throw new ForeignKeyIsNotFound("PaymentId or RoleDriverId or RoleUserId or Promo");
+            throw new ForeignKeyIsNotFound("PaymentId or RoleUserId or Promo");
         }
 
         return tripService.save(tripDto, payment, promo, roleUser, serviceCarId);
